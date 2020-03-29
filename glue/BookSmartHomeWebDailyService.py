@@ -147,7 +147,6 @@ def get_out_filename(input_s3_key):
     return input_s3_key.split('/')[-1].replace(IN_SUFFIX,OUT_SUFFIX)
 
 def map_and_upload(obj):
-    versions_and_events = {}
 
     events = []
     file = s3_.Object(IN_BUCKET, obj.key).get()['Body'].read()
@@ -156,16 +155,11 @@ def map_and_upload(obj):
     for line in file.decode().split('\n'):
         if line:
             event = json.loads(line)
-            mapped_event = map_event(event)
-            event_version = get_value(mapped_event, 'application.version_name')
-            #versions_and_events.get(event_version, []).append(json.dumps(map_event(event)))
 
-            if event_version not in versions_and_events.keys():
-                versions_and_events[event_version] = []
-            versions_and_events.get(event_version).append(json.dumps(mapped_event))
-            #events.append(json.dumps(map_event(event)))
-    #s3_.Object(OUT_BUCKET, out_key).put(Body='\n'.join(events))
-    save_versions_and_events(versions_and_events,obj)
+            events.append(json.dumps(map_event(event)))
+    out_key = OUT_PREFIX + '/EVENT_LOG_LIST/' + get_out_filename(obj.key)
+    s3_.Object(OUT_BUCKET, out_key).put(Body='\n'.join(events))
+
 
 def save_versions_and_events(ve, obj):
     print(ve.keys())
