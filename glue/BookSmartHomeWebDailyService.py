@@ -33,7 +33,7 @@ OUT_SUFFIX = args['OUT_SUFFIX']  # .log
 
 
 MAPPING_DIRECTORY = args['MAPPING_DIRECTORY']  # dev/mappings/BookSmartPlus
-JORDAN_PROJECT_ID = int(args['JORDAN_PROJECT_ID'])
+JORDAN_PROJECT_ID = args['JORDAN_PROJECT_ID']
 RANGE_FROM = args['RANGE_FROM']
 RANGE_TO = args['RANGE_TO']
 
