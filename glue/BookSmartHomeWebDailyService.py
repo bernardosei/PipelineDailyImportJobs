@@ -155,6 +155,7 @@ def map_and_upload(obj):
     for line in file.decode().split('\n'):
         if line:
             event = json.loads(line)
+            set_value(event, 'attributes.obj_key', get_out_filename(obj.key))
 
             events.append(json.dumps(map_event(event)))
     out_key = OUT_PREFIX + '/EVENT_LOG_LIST/' + get_out_filename(obj.key)
