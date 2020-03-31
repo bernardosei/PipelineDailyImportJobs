@@ -132,6 +132,9 @@ def map_event(event):
     if get_value(event, 'device.locale.country') == 'JO':
         set_value(event, 'attributes.project_id', JORDAN_PROJECT_ID)
 
+    if get_value(event,'application.title') != 'BookSmartPlus':
+        set_value(event,'application.title','WorldreaderKids')
+
     custom_app_mapping(event)
 
     return event
