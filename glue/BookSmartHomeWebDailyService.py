@@ -133,6 +133,10 @@ def map_event(event):
         set_value(event, 'attributes.project_id', JORDAN_PROJECT_ID)
 
     custom_app_mapping(event)
+    country = get_value(event,'attributes.country_code')
+    if country not in ['', None]:
+        set_value(event, 'attributes.country_code', country.upper())
+
 
     return event
 
